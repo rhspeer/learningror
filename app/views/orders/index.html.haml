@@ -1,5 +1,8 @@
 %h1 Listing orders
 
+- if flash[:notice].present?
+  %flash= flash[:notice]
+
 %table.orders
   %tr
     %th Customer name
@@ -7,6 +10,7 @@
     %th Description
     %th Price
     %th Paid for on
+    %th
     %th
     %th
     %th
@@ -21,6 +25,9 @@
       %td= link_to 'Show', order
       %td= link_to 'Edit', edit_order_path(order)
       %td= link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td
+        - if order.paid_for_on.blank?
+          = link_to 'Mark Paid', mark_paid_order_path(order), method: :post
 
 %br
 

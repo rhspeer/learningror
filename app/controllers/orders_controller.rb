@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :mark_paid]
 
   # GET /orders
   # GET /orders.json
@@ -59,6 +59,12 @@ class OrdersController < ApplicationController
       format.html { redirect_to orders_url }
       format.json { head :no_content }
     end
+  end
+
+  def mark_paid
+    @order.paid_for_on = DateTime.now
+    @order.save
+    redirect_to orders_path, notice: 'Order paid as of today'
   end
 
   private

@@ -1,5 +1,9 @@
 Bikeshop::Application.routes.draw do
-  resources :orders
+  resources :orders do
+    member do
+      post 'mark_paid'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
