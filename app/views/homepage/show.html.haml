@@ -1,3 +1,7 @@
-%p Welcome to the Bike Shop Order Tracker
+%h1 Welcome to the Bike Shop Order Tracker
 
-= link_to 'Open orders', orders_path
+.orders
+
+  .unpaid= "Currently #{pluralize(@unpaid_orders, 'unpaid order')}"
+
+  = link_to 'See all open orders', orders_path
