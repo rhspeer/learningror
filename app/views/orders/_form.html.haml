@@ -18,9 +18,10 @@
   .field
     = f.label :price
     = f.text_field :price
-  .field
-    = f.label :completed_on
-    = f.text_field :completed_on
+  - unless @order.new_record?
+    .field
+      = f.label :completed_on
+      = f.text_field :completed_on
   .field
     = f.label :paid_for_on
     = f.text_field :paid_for_on
