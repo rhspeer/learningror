@@ -2,6 +2,7 @@ Bikeshop::Application.routes.draw do
   resources :orders do
     member do
       post 'mark_paid'
+      post 'mark_completed'
     end
   end
 

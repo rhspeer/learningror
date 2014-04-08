@@ -28,6 +28,9 @@
       %td= link_to 'Edit', edit_order_path(order)
       %td= link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }
       %td
+        - if order.completed_on.blank?
+          = link_to 'Mark Completed', mark_completed_order_path(order), method: :post
+      %td
         - if order.paid_for_on.blank?
           = link_to 'Mark Paid', mark_paid_order_path(order), method: :post
 
