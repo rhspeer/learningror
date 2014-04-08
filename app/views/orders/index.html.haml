@@ -22,8 +22,8 @@
       %td= order.customer_email
       %td= order.description
       %td= order.price
-      %td= order.completed_on
-      %td= order.paid_for_on
+      %td= order.completed_on.to_formatted_s(:short_date) unless order.completed_on.blank?
+      %td= order.paid_for_on.to_formatted_s(:short_date) unless order.paid_for_on.blank?
       %td= link_to 'Show', order
       %td= link_to 'Edit', edit_order_path(order)
       %td= link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }
