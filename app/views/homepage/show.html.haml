@@ -1,7 +1,11 @@
 %h1 Welcome to the Bike Shop Order Tracker
 
 .orders
+  %p
+    Current Status:
+    %span.unpaid= "#{pluralize(@unpaid_order_count, 'unpaid order')}"
+    and
+    %span.unfinished= "#{pluralize(@unfinished_order_count, 'unfinished order')}"
 
-  .unpaid= "Currently #{pluralize(@unpaid_orders, 'unpaid order')}"
-
-  = link_to 'See all open orders', orders_path
+  %p
+    = link_to 'See all open orders', orders_path

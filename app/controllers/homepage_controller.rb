@@ -1,5 +1,6 @@
 class HomepageController < ApplicationController
   def show
-    @unpaid_orders = Order.unpaid.count
+    @unpaid_order_count = Order.unpaid.count
+    @unfinished_order_count = Order.unfinished.count
   end
 end
