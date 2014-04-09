@@ -3,6 +3,7 @@
 %table
   %tr
     %th Name
+    %th Active?
     %th
     %th
     %th
@@ -10,6 +11,7 @@
   - @brands.each do |brand|
     %tr
       %td= brand.name
+      %td= brand.active? ? 'Yes' : 'No'
       %td= link_to 'Show', brand
       %td= link_to 'Edit', edit_brand_path(brand)
       %td= link_to 'Destroy', brand, :method => :delete, :data => { :confirm => 'Are you sure?' }

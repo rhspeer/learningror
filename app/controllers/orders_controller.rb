@@ -15,10 +15,12 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @brands = Brand.active
   end
 
   # GET /orders/1/edit
   def edit
+    @brands = Brand.all
   end
 
   # POST /orders
