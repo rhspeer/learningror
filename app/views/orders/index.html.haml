@@ -8,6 +8,7 @@
     %th Customer name
     %th Customer email
     %th Brand
+    %th Frame
     %th Description
     %th Price
     %th Completed on
@@ -21,7 +22,8 @@
     %tr
       %td= order.customer_name
       %td= order.customer_email
-      %td= order.brand.name if order.brand.present?
+      %td= order.frame.brand.name
+      %td= order.frame.name
       %td= order.description
       %td= order.price
       %td= order.completed_on.to_formatted_s(:short_date) unless order.completed_on.blank?

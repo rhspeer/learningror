@@ -7,6 +7,12 @@
   %b Customer email:
   = @order.customer_email
 %p
+  %b Brand:
+  = @order.frame.brand.name
+%p
+  %b Frame:
+  = @order.frame.name
+%p
   %b Description:
   = @order.description
 %p
