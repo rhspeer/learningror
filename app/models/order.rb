@@ -7,6 +7,10 @@ class Order < ActiveRecord::Base
 
   scope :unfinished, -> { where(completed_on: nil) }
 
+  def self.paid
+    where.not(paid_for_on: nil)
+  end
+
   def self.unpaid
     where(paid_for_on: nil)
   end

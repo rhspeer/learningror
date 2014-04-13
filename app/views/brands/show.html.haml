@@ -4,8 +4,8 @@
   %b Name:
   = @brand.name
 %p
-  %b Orders:
-  - if @brand.orders.any?
+  %b Paid but incomplete orders:
+  - if @brand.paid_but_incomplete_orders.any?
     %ul
       - @brand.orders.each do |order|
         %li= link_to "Order #{order.id}", order_path(order)
