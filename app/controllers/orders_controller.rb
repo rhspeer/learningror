@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :set_frames, only: [:new, :edit, :create, :update]
   before_action :set_order, only: [:show, :edit, :update, :destroy, :mark_paid, :mark_completed]
 
   # GET /orders
@@ -15,12 +16,10 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
-    @brands = Brand.active
   end
 
   # GET /orders/1/edit
   def edit
-    @brands = Brand.all
   end
 
   # POST /orders
@@ -33,7 +32,6 @@ class OrdersController < ApplicationController
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render action: 'show', status: :created, location: @order }
       else
-        @brands = Brand.active
         format.html { render action: 'new' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
@@ -48,7 +46,6 @@ class OrdersController < ApplicationController
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
         format.json { head :no_content }
       else
-        @brands = Brand.active
         format.html { render action: 'edit' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
@@ -85,6 +82,11 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:customer_name, :customer_email, :description, :price, :paid_for_on, :completed_on, :brand_id)
+      params.require(:order).permit(:customer_name, :customer_email, :description, :price, :paid_for_on, :completed_on, :frame_id)
+    end
+
+    def set_frames
+      # really, should be the frames for active brands
+      @frames = Frame.all
     end
 end

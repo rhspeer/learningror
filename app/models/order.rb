@@ -1,11 +1,15 @@
 class Order < ActiveRecord::Base
 
-  belongs_to :brand
+  belongs_to :frame
 
-  validates :customer_name, :customer_email, :description, :price, :brand_id, presence: true
+  validates :customer_name, :customer_email, :description, :price, :frame_id, presence: true
   validate :completion_date_must_be_in_the_past
 
   scope :unfinished, -> { where(completed_on: nil) }
+
+  def self.paid
+    where.not(paid_for_on: nil)
+  end
 
   def self.unpaid
     where(paid_for_on: nil)
