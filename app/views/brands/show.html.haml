@@ -1,8 +1,7 @@
 %p#notice= notice
 
-%p
-  %b Name:
-  = @brand.name
+%h1= @brand.name
+
 %p
   %b Paid but incomplete orders:
   - if @brand.paid_but_incomplete_orders.any?
