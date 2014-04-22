@@ -1,4 +1,4 @@
-%h1 Listing orders
+%h1 Orders
 
 - if flash[:notice].present?
   %flash= flash[:notice]
@@ -11,11 +11,8 @@
     %th Frame
     %th Description
     %th Price
-    %th Completed on
-    %th Paid for on
-    %th
-    %th
-    %th
+    %th.center Completed on
+    %th.center Paid for on
     %th
 
   - @orders.each do |order|
@@ -25,18 +22,22 @@
       %td= order.frame.brand.name
       %td= order.frame.name
       %td= order.description
-      %td= order.price
-      %td= order.completed_on.to_formatted_s(:short_date) unless order.completed_on.blank?
-      %td= order.paid_for_on.to_formatted_s(:short_date) unless order.paid_for_on.blank?
-      %td= link_to 'Show', order
-      %td= link_to 'Edit', edit_order_path(order)
-      %td= link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }
-      %td
+      %td= number_to_currency(order.price)
+      %td.center
         - if order.completed_on.blank?
-          = link_to 'Mark Completed', mark_completed_order_path(order), method: :post
-      %td
+          = link_to 'Mark Completed', mark_completed_order_path(order), method: :post, class: 'button'
+        - else
+          = order.completed_on.to_formatted_s(:short_date)
+      %td.center
         - if order.paid_for_on.blank?
-          = link_to 'Mark Paid', mark_paid_order_path(order), method: :post
+          = link_to 'Mark Paid', mark_paid_order_path(order), method: :post, class: 'button'
+        - else
+          = order.paid_for_on.to_formatted_s(:short_date)
+      %td.actions
+        = link_to 'Show', order, class: 'button-small show'
+        = link_to 'Edit', edit_order_path(order), class: 'button-small edit'
+        = link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'button-small delete'
+      %td
 
 %br
 

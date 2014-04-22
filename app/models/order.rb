@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
 
   belongs_to :frame
+  has_one :brand, through: :frame
 
   validates :customer_name, :customer_email, :description, :price, :frame_id, presence: true
   validate :completion_date_must_be_in_the_past
@@ -13,6 +14,10 @@ class Order < ActiveRecord::Base
 
   def self.unpaid
     where(paid_for_on: nil)
+  end
+
+  def brand_id
+    brand ? brand.id : nil
   end
 
   private

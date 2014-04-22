@@ -1,7 +1,11 @@
 Bikeshop::Application.routes.draw do
   resources :frames
 
-  resources :brands
+  resources :brands do
+    member do
+      get 'frames'
+    end
+  end
 
   resources :orders do
     member do
