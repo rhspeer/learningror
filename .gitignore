@@ -38,3 +38,7 @@ config/initializers/secret_token.rb
 
 ## Additional for IntelliJ
 out/
+
+.ruby-gemset
+
+.ruby-version
