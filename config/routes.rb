@@ -1,4 +1,5 @@
 Bikeshop::Application.routes.draw do
+  devise_for :employees
   resources :frames
 
   resources :brands do
