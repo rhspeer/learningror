@@ -63,14 +63,12 @@ class OrdersController < ApplicationController
   end
 
   def mark_paid
-    @order.paid_for_on = DateTime.now
-    @order.save
+    @order.pay!
     redirect_to orders_path, notice: 'Order paid as of today'
   end
 
   def mark_completed
-    @order.completed_on = DateTime.now
-    @order.save
+    @order.complete!
     redirect_to orders_path, notice: 'Order completed as of today'
   end
 

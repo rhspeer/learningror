@@ -14,12 +14,12 @@ class Order < ActiveRecord::Base
     state :paid
     state :completed
 
-    event :pay do
-      transitions :from => :new, :to => :paid, :on_transition => :mark_paid
+    event :pay, timestamp: :paid_for_on do
+      transitions :from => :new, :to => :paid
     end
 
-    event :complete do
-      transitions :from => :paid, :to => :completed, :on_transition => :mark_completed
+    event :complete, timestamp: :completed_on do
+      transitions :from => :paid, :to => :completed
     end
   end
 
@@ -39,15 +39,5 @@ class Order < ActiveRecord::Base
 
   def completion_date_must_be_in_the_past
     errors.add(:completed_on, 'should not be in the future.') if completed_on && completed_on > Time.now
-  end
-
-  def mark_completed
-    order.completed_on = Time.now
-    order.save!
-  end
-
-  def mark_paid
-    order.paid_for_on = Time.now
-    order.save!
   end
 end

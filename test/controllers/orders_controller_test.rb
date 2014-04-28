@@ -67,6 +67,7 @@ class OrdersControllerTest < ActionController::TestCase
 
   test "should mark order completed" do
     assert_nil @order.completed_on
+    @order.pay!
     post :mark_completed, id: @order
 
     @order.reload
@@ -87,5 +88,14 @@ class OrdersControllerTest < ActionController::TestCase
 
     @order.reload
     assert_nil @order.send(field), "Client directly updated #{field}"
+  end
+
+  test "should not mark order completed if it is not paid" do
+    assert_raise(Transitions::InvalidTransition) do
+      post :mark_completed, id: @order
+    end
+
+    @order.reload
+    assert_nil @order.completed_on
   end
 end
