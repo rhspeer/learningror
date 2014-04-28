@@ -3,6 +3,8 @@ require 'test_helper'
 class OrdersControllerTest < ActionController::TestCase
   setup do
     @order = FactoryGirl.create(:order)
+    employee = FactoryGirl.create(:employee)
+    sign_in(employee)
   end
 
   test "should get index" do
