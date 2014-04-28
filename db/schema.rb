@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140425163115) do
+ActiveRecord::Schema.define(version: 20140428203517) do
 
   create_table "brands", force: true do |t|
     t.string   "name"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20140425163115) do
     t.datetime "updated_at"
     t.datetime "completed_on"
     t.integer  "frame_id"
+    t.string   "state",          default: "new", null: false
   end
 
 end
