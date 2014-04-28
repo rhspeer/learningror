@@ -8,8 +8,8 @@ gem 'haml-rails'
 gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails'
 gem 'sass-rails', '~> 4.0.2'
-gem 'state_machine'
 gem 'sqlite3'
+gem 'transitions', require: ["transitions", "active_model/transitions"]
 gem 'uglifier', '>= 1.3.0'
 
 group :doc do

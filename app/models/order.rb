@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+  include ActiveModel::Transitions
 
   belongs_to :frame
   has_one :brand, through: :frame
@@ -8,27 +9,17 @@ class Order < ActiveRecord::Base
 
   scope :unfinished, -> { where(completed_on: nil) }
 
-  state_machine :state, initial: :new do
+  state_machine do
     state :new
     state :paid
     state :completed
 
     event :pay do
-      transition :new => :paid
+      transitions :from => :new, :to => :paid, :on_transition => :mark_paid
     end
 
     event :complete do
-      transition :paid => :completed
-    end
-
-    after_transition any => :paid do |order|
-      order.paid_for_on = Time.now
-      order.save!
-    end
-
-    after_transition any => :completed do |order|
-      order.completed_on = Time.now
-      order.save!
+      transitions :from => :paid, :to => :completed, :on_transition => :mark_completed
     end
   end
 
@@ -50,4 +41,13 @@ class Order < ActiveRecord::Base
     errors.add(:completed_on, 'should not be in the future.') if completed_on && completed_on > Time.now
   end
 
+  def mark_completed
+    order.completed_on = Time.now
+    order.save!
+  end
+
+  def mark_paid
+    order.paid_for_on = Time.now
+    order.save!
+  end
 end
