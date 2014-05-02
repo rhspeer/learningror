@@ -21,14 +21,14 @@
       %td= order.description
       %td= number_to_currency(order.price)
       %td.center
-        - if order.completed_on.blank?
+        - if order.can_transition? :complete
           = link_to 'Mark Completed', mark_completed_order_path(order), method: :post, class: 'button'
-        - else
+        - elsif order.completed_on
           = order.completed_on.to_formatted_s(:short_date)
       %td.center
-        - if order.paid_for_on.blank?
+        - if order.can_transition? :pay
           = link_to 'Mark Paid', mark_paid_order_path(order), method: :post, class: 'button'
-        - else
+        - elsif order.paid_for_on
           = order.paid_for_on.to_formatted_s(:short_date)
       %td.actions
         = link_to 'Show', order, class: 'button-small show'
